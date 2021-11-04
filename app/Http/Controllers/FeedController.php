@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
     public function index(){
-        return view('public.feed.index');
+        $posts = Post::with('image')->orderBy('created_at', 'desc')->get();
+//        $posts = Attachment::all();
+//        dd($posts);
+        return view('public.feed.index', compact('posts'));
     }
 }

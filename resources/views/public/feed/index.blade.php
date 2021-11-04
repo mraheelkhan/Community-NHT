@@ -21,94 +21,87 @@
                     </div>
                 </div>
             @endauth
+
+            @foreach($posts as $post)
             <div class="col-sm-12">
                 <div class="card card-block card-stretch card-height">
                     <div class="card-body">
                         <div class="user-post-data">
                             <div class="d-flex justify-content-between">
                                 <div class="me-3">
-                                    <img class="rounded-circle img-fluid" src="../assets/images/user/01.jpg" alt="">
+                                    <img class="rounded-circle img-fluid" src="http://localhost:8001/assets/images/user/01.jpg" alt="">
                                 </div>
                                 <div class="w-100">
                                     <div class="d-flex justify-content-between">
                                         <div class="">
-                                            <h5 class="mb-0 d-inline-block">Anna Sthesia</h5>
-                                            <span class="mb-0 d-inline-block">Add New Post</span>
-                                            <p class="mb-0 text-primary">Just Now</p>
+                                            <h5 class="mb-0 d-inline-block">{{ ucwords($post->user->fullname) }}</h5>
+                                            <span class="mb-0 d-inline-block">added new post</span>
+                                            <p class="mb-0 text-primary">{{ $post->created_at->diffForHumans() }}</p>
                                         </div>
-                                        <div class="card-post-toolbar">
-                                            <div class="dropdown">
-                                             <span class="dropdown-toggle" data-bs-toggle="dropdown"
-                                                   aria-haspopup="true" aria-expanded="false" role="button">
-                                                <i class="ri-more-fill"></i>
-                                             </span>
-                                                <div class="dropdown-menu m-0 p-0">
-                                                    <a class="dropdown-item p-3" href="#">
-                                                        <div class="d-flex align-items-top">
-                                                            <div class="h4">
-                                                                <i class="ri-save-line"></i>
-                                                            </div>
-                                                            <div class="data ms-2">
-                                                                <h6>Save Post</h6>
-                                                                <p class="mb-0">Add this to your saved items</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="dropdown-item p-3" href="#">
-                                                        <div class="d-flex align-items-top">
-                                                            <i class="ri-close-circle-line h4"></i>
-                                                            <div class="data ms-2">
-                                                                <h6>Hide Post</h6>
-                                                                <p class="mb-0">See fewer posts like this.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="dropdown-item p-3" href="#">
-                                                        <div class="d-flex align-items-top">
-                                                            <i class="ri-user-unfollow-line h4"></i>
-                                                            <div class="data ms-2">
-                                                                <h6>Unfollow User</h6>
-                                                                <p class="mb-0">Stop seeing posts but stay friends.</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="dropdown-item p-3" href="#">
-                                                        <div class="d-flex align-items-top">
-                                                            <i class="ri-notification-line h4"></i>
-                                                            <div class="data ms-2">
-                                                                <h6>Notifications</h6>
-                                                                <p class="mb-0">Turn on notifications for this post</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+{{--                                        <div class="card-post-toolbar">--}}
+{{--                                            <div class="dropdown">--}}
+{{--                                             <span class="dropdown-toggle" data-bs-toggle="dropdown"--}}
+{{--                                                   aria-haspopup="true" aria-expanded="false" role="button">--}}
+{{--                                                <i class="ri-more-fill"></i>--}}
+{{--                                             </span>--}}
+{{--                                                <div class="dropdown-menu m-0 p-0">--}}
+{{--                                                    <a class="dropdown-item p-3" href="#">--}}
+{{--                                                        <div class="d-flex align-items-top">--}}
+{{--                                                            <div class="h4">--}}
+{{--                                                                <i class="ri-save-line"></i>--}}
+{{--                                                            </div>--}}
+{{--                                                            <div class="data ms-2">--}}
+{{--                                                                <h6>Save Post</h6>--}}
+{{--                                                                <p class="mb-0">Add this to your saved items</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </a>--}}
+{{--                                                    <a class="dropdown-item p-3" href="#">--}}
+{{--                                                        <div class="d-flex align-items-top">--}}
+{{--                                                            <i class="ri-close-circle-line h4"></i>--}}
+{{--                                                            <div class="data ms-2">--}}
+{{--                                                                <h6>Hide Post</h6>--}}
+{{--                                                                <p class="mb-0">See fewer posts like this.</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </a>--}}
+{{--                                                    <a class="dropdown-item p-3" href="#">--}}
+{{--                                                        <div class="d-flex align-items-top">--}}
+{{--                                                            <i class="ri-user-unfollow-line h4"></i>--}}
+{{--                                                            <div class="data ms-2">--}}
+{{--                                                                <h6>Unfollow User</h6>--}}
+{{--                                                                <p class="mb-0">Stop seeing posts but stay friends.</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </a>--}}
+{{--                                                    <a class="dropdown-item p-3" href="#">--}}
+{{--                                                        <div class="d-flex align-items-top">--}}
+{{--                                                            <i class="ri-notification-line h4"></i>--}}
+{{--                                                            <div class="data ms-2">--}}
+{{--                                                                <h6>Notifications</h6>--}}
+{{--                                                                <p class="mb-0">Turn on notifications for this post</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </a>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at
-                                commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac
-                                massa sed rhoncus</p>
+                        <div class="mt-3" style="white-space: pre-wrap;">
+                            <p>{{ $post->description }}</p>
                         </div>
+                        @if($post->image->filename)
                         <div class="user-post">
-                            <div class=" d-grid grid-rows-2 grid-flow-col gap-3">
-                                <div class="row-span-2 row-span-md-1">
-                                    <img src="../assets/images/page-img/p2.jpg" alt="post-image"
-                                         class="img-fluid rounded w-100">
-                                </div>
-                                <div class="row-span-1">
-                                    <img src="../assets/images/page-img/p1.jpg" alt="post-image"
-                                         class="img-fluid rounded w-100">
-                                </div>
-                                <div class="row-span-1 ">
-                                    <img src="../assets/images/page-img/p3.jpg" alt="post-image"
-                                         class="img-fluid rounded w-100">
-                                </div>
-                            </div>
+                            <a href="#">
+                                <img src="http://localhost:8001/postimages/{{$post->image->filename}}"
+                                     alt="post-image"
+                                  class="img-fluid rounded w-100 shadow">
+                            </a>
                         </div>
+                        @endif
                         <div class="comment-area mt-3">
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                 <div class="like-block position-relative d-flex align-items-center">
@@ -237,6 +230,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
             <div class="col-sm-12">
                 <div class="card card-block card-stretch card-height">
                     <div class="card-body">

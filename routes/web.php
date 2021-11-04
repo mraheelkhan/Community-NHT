@@ -21,7 +21,7 @@ use App\Http\Controllers\{
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('feed', [FeedController::class, 'index']);
+Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
 Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class);
 });

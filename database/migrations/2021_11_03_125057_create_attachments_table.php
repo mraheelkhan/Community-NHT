@@ -16,7 +16,7 @@ class CreateAttachmentsTable extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->nullable()->references('id')->on('posts');
-            $table->foreignId('comment_id')->nullable()->references('comments')->on('comments');
+            $table->foreignId('comment_id')->nullable()->references('id')->on('comments');
             $table->string('type');
             $table->string('filename');
             $table->softDeletes();

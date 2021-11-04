@@ -21,6 +21,7 @@
             data-bs-toggle="modal"
             data-bs-target="#post-modal"
             action="javascript:void();"
+            enctype="multipart/form-data"
           >
             <textarea
               class="form-control rounded"
@@ -252,6 +253,7 @@ export default {
       description: null,
       image: null,
       url: null,
+      data : {}
     //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
     };
   },
@@ -267,29 +269,42 @@ export default {
     imagePreview(e) {
       const file = e.target.files[0];
       this.url = URL.createObjectURL(file);
-      this.image = file
+      this.image = file;
+      this.data = {
+          description : this.description,
+          image : file
+      }
     },
     removeUploadedImage(e) {
       this.url = null;
       this.image = null;
     },
     createPost(){
-        let data = {
-            'description' : this.description,
-            'image' : this.image
-        }
-        console.log(data)
+        let formData = new FormData();
+        formData.append("description", this.description);
+        formData.append("image", this.image);
+        console.log(formData)
 
-        axios.post('posts', data)
+        axios.post('posts', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+        })
         .then(response => {
-            // if(response.data.success != 1){
-            // } else {
+            console.info(response.data)
+            if(response.data.success){
                 Swal.fire({
-                    title: 'Submitted Successfully',
+                    title: 'Successfully created your post.',
                     icon: 'success',
                 })
-                console.info(response)
-            // }
+                this.description = null;
+                this.removeUploadedImage();
+            } else {
+                Swal.fire({
+                    title: 'Couldn\'t created your post, please try again later',
+                    icon: 'error',
+                })
+            }
         }).
         catch(error => {
             this.errored = true

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
+use App\Models\Attachment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -32,11 +33,19 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function store(PostStoreRequest $request)
+    public function store(PostStoreRequest $request) : array
     {
-        return $request->validated();
+        $image = $request->file('image');
+        $post = $this->setPost($request->description);
+        if($image){
+            $this->setImage($image, $post);
+        }
+        return [
+            'success' => true,
+            'message' => 'Post successfully created'
+        ];
     }
 
     /**
@@ -82,5 +91,37 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    /**
+     * @param $image
+     * @return Attachment
+     */
+    public function setImage($image, Post $post): Attachment
+    {
+        $rand = mt_rand(100000, 999999);
+        $name = time() . "_" . $rand . "." . $image->getClientOriginalExtension();
+        $name = str_replace(" ", "", $name);
+        $image->move(public_path() . '/postimages/', $name);
+
+        $image = new Attachment;
+        $image->type = 'image';
+        $image->filename = $name;
+        $image->post_id = $post->id;
+        $image->save();
+        return $image;
+    }
+
+    /**
+     * @param $request
+     * @param $image
+     * @return Post
+     */
+    public function setPost(string $description): Post
+    {
+        $post = new Post;
+        $post->description = $description;
+        $post->save();
+        return $post;
     }
 }

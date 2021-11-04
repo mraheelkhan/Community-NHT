@@ -25,7 +25,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'description' => 'nullable',
-            'image' => 'nullable|image'
+            'image' => 'required'
         ];
     }
 }

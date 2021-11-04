@@ -2310,6 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-post",
@@ -2320,7 +2321,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       description: null,
       image: null,
-      url: null //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
+      url: null,
+      data: {} //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
 
     };
   },
@@ -2337,6 +2339,10 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0];
       this.url = URL.createObjectURL(file);
       this.image = file;
+      this.data = {
+        description: this.description,
+        image: file
+      };
     },
     removeUploadedImage: function removeUploadedImage(e) {
       this.url = null;
@@ -2345,19 +2351,31 @@ __webpack_require__.r(__webpack_exports__);
     createPost: function createPost() {
       var _this = this;
 
-      var data = {
-        'description': this.description,
-        'image': this.image
-      };
-      console.log(data);
-      axios.post('posts', data).then(function (response) {
-        // if(response.data.success != 1){
-        // } else {
-        Swal.fire({
-          title: 'Submitted Successfully',
-          icon: 'success'
-        });
-        console.info(response); // }
+      var formData = new FormData();
+      formData.append("description", this.description);
+      formData.append("image", this.image);
+      console.log(formData);
+      axios.post('posts', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(function (response) {
+        console.info(response.data);
+
+        if (response.data.success) {
+          Swal.fire({
+            title: 'Successfully created your post.',
+            icon: 'success'
+          });
+          _this.description = null;
+
+          _this.removeUploadedImage();
+        } else {
+          Swal.fire({
+            title: 'Couldn\'t created your post, please try again later',
+            icon: 'error'
+          });
+        }
       })["catch"](function (error) {
         _this.errored = true;
         console.error(error);
@@ -38948,6 +38966,7 @@ var render = function () {
                   "data-bs-toggle": "modal",
                   "data-bs-target": "#post-modal",
                   action: "javascript:void();",
+                  enctype: "multipart/form-data",
                 },
                 on: {
                   submit: function ($event) {
