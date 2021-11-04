@@ -251,7 +251,8 @@ export default {
     return {
       description: null,
       image: null,
-      url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
+      url: null,
+    //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
     };
   },
   methods: {
@@ -275,7 +276,7 @@ export default {
     createPost(){
         let data = {
             'description' : this.description,
-            'file' : this.image
+            'image' : this.image
         }
         console.log(data)
 

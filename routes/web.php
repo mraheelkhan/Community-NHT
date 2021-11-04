@@ -22,8 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('feed', [FeedController::class, 'index']);
-Route::prefix('user')->middleware('auth')->group(function () {
-    Route::get('/', PostController::class)->name('auth.profile');
+Route::middleware('auth')->group(function () {
+    Route::resource('posts', PostController::class);
 });
 Auth::routes();
 

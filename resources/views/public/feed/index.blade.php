@@ -3,7 +3,24 @@
     <div class="row">
         <div class="col-lg-8 row m-0 p-0">
 
+            @auth()
             <create-post></create-post>
+            @else
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+
+                            <span>
+                                 <i class="fa fa-exclamation-triangle m-2"></i>
+                                Do you want to create post? please
+                                <a href="{{route('login')}}" class="link-primary font-weight-bold"> login </a>
+                                or
+                                <a href="{{route('register')}}" class="link-primary font-weight-normal"> register </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endauth
             <div class="col-sm-12">
                 <div class="card card-block card-stretch card-height">
                     <div class="card-body">
