@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
+    PostController,
+    FeedController,
+    HomeController,
 
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('feed', [\App\Http\Controllers\FeedController::class, 'index']);
+Route::get('feed', [FeedController::class, 'index']);
+Route::prefix('user')->middleware('auth')->group(function () {
+    Route::get('/', PostController::class)->name('auth.profile');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

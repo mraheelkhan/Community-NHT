@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/libs.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/remixicon/fonts/remixicon.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/vanillajs-datepicker/dist/css/datepicker.min.css')}}">
+
+
 </head>
 <body>
 <div  class="wrapper" id="app">
