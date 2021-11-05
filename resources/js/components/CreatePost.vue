@@ -88,7 +88,6 @@
                       class="btn btn-success"
                     value="Post now"
                     >
-                      
                     
                   </li>
                     </ul>
@@ -307,9 +306,7 @@ export default {
             this.errored = true
             console.error(error)
         })
-        .finally(() => this.loading = false)
-
-        
+        .finally(() => this.loading = false) 
     },
     auto_grow() {
       const element = this.$refs.refTextAreaDescription;

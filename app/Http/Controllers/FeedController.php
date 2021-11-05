@@ -10,8 +10,6 @@ class FeedController extends Controller
 {
     public function index(){
         $posts = Post::with('image')->orderBy('created_at', 'desc')->get();
-//        $posts = Attachment::all();
-//        dd($posts);
         return view('public.feed.index', compact('posts'));
     }
 }
