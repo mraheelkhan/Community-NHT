@@ -30,9 +30,9 @@ class Comment extends Model
         return $this->hasOne(Attachment::class, 'comment_id', 'id')->withDefault();
     }
 
-    public function getImageUrlAttribute(): string
+    public function getImageUrlAttribute(): ?string
     {
-        return asset("postcomments/" . $this->image->filename);
+        return ($this->image->filename) ? (asset("postcomments/" . $this->image->filename)) : null;
     }
 
     public function getCommenterFullNameAttribute(): string

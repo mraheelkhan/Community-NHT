@@ -2804,6 +2804,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['comments'],
   data: function data() {
@@ -40173,8 +40182,17 @@ var render = function () {
                 _vm._v(
                   " \n              " +
                     _vm._s(comment.free_description) +
-                    "\n              "
+                    "\n          "
                 ),
+              ]),
+              _vm._v(" "),
+              _c("div", {}, [
+                comment.image_url
+                  ? _c("img", {
+                      staticClass: "m-10 w-50",
+                      attrs: { src: comment.image_url, alt: "comment image" },
+                    })
+                  : _vm._e(),
               ]),
               _vm._v(" "),
               _c(
