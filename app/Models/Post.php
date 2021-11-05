@@ -15,7 +15,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = ['description', 'image', 'author_id'];
-
+    protected $appends = ['free_description'];
     protected static function boot()
     {
         parent::boot();
@@ -44,6 +44,9 @@ class Post extends Model
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
+    public function getFreeDescriptionAttribute(): string{
+        return (empty($this->attributes['description']) ? '' : $this->attributes['description']);
+    }
 
 
 

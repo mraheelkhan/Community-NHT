@@ -90,8 +90,9 @@
                                 </div>
                             </div>
                         </div>
+{{--                        @dd($post)--}}
                         <div class="mt-3" style="white-space: pre-wrap;">
-                            <p>{{ $post->description }}</p>
+                            <p>{{ $post->free_description }}</p>
                         </div>
                         @if($post->image->filename)
                         <div class="user-post">

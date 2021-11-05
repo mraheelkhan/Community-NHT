@@ -38,7 +38,7 @@ class PostController extends Controller
     public function store(PostStoreRequest $request) : array
     {
         $image = $request->file('image');
-        $post = $this->setPost($request->description);
+        $post = $this->setPost($request);
         if($image){
             $this->setImage($image, $post);
         }
@@ -117,11 +117,11 @@ class PostController extends Controller
      * @param $image
      * @return Post
      */
-    public function setPost(string $description): Post
+    public function setPost(Request $description): Post
     {
-        $post = new Post;
-        $post->description = $description;
-        $post->save();
+        $post = Post::create([
+            'description' => $description->description,
+        ]);
         return $post;
     }
 }

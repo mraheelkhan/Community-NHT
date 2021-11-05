@@ -2319,7 +2319,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      description: null,
+      description: '',
       image: null,
       url: null,
       data: {} //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
@@ -2339,10 +2339,6 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0];
       this.url = URL.createObjectURL(file);
       this.image = file;
-      this.data = {
-        description: this.description,
-        image: file
-      };
     },
     removeUploadedImage: function removeUploadedImage(e) {
       this.url = null;
@@ -2355,6 +2351,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("description", this.description);
       formData.append("image", this.image);
       console.log(formData);
+      console.log(this.description);
       axios.post('posts', formData, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -2367,7 +2364,7 @@ __webpack_require__.r(__webpack_exports__);
             title: 'Successfully created your post.',
             icon: 'success'
           });
-          _this.description = null;
+          _this.description = '';
 
           _this.removeUploadedImage();
         } else {

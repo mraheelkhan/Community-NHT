@@ -250,7 +250,7 @@ export default {
   components: { UploadImages },
   data() {
     return {
-      description: null,
+      description: '',
       image: null,
       url: null,
       data : {}
@@ -270,10 +270,6 @@ export default {
       const file = e.target.files[0];
       this.url = URL.createObjectURL(file);
       this.image = file;
-      this.data = {
-          description : this.description,
-          image : file
-      }
     },
     removeUploadedImage(e) {
       this.url = null;
@@ -284,6 +280,7 @@ export default {
         formData.append("description", this.description);
         formData.append("image", this.image);
         console.log(formData)
+        console.log(this.description)
 
         axios.post('posts', formData, {
             headers: {
@@ -297,7 +294,7 @@ export default {
                     title: 'Successfully created your post.',
                     icon: 'success',
                 })
-                this.description = null;
+                this.description = '';
                 this.removeUploadedImage();
             } else {
                 Swal.fire({
