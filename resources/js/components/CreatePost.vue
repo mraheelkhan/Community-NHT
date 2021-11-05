@@ -16,7 +16,7 @@
             />
           </div>
           <form
-          @submit.prevent="createPost"
+            @submit.prevent="createPost"
             class="post-text ms-3 w-100"
             data-bs-toggle="modal"
             data-bs-target="#post-modal"
@@ -43,31 +43,34 @@
             />
 
             <div v-if="url" class="w-100">
-                <img  :src="url" id="preview" class="img-thumbnail w-100" />
-                <a class="btn btn-soft-primary w-100" @click="removeUploadedImage">
-                    <span> <i class="fa fa-times"></i></span>
-                </a>
+              <img :src="url" id="preview" class="img-thumbnail w-100" />
+              <a
+                class="btn btn-soft-primary w-100"
+                @click="removeUploadedImage"
+              >
+                <span> <i class="fa fa-times"></i></span>
+              </a>
             </div>
             <hr />
             <div class="row">
               <div class="col-md-8">
-                    <ul class="post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
-              <li class="me-3 mb-md-0 mb-2">
-                <a
-                  href="#"
-                  class="btn btn-soft-primary"
-                  v-on:click="openImageUploadBrowse"
-                  id="file"
-                >
-                  <img
-                    src="http://localhost:8001/assets/images/small/07.png"
-                    alt="icon"
-                    class="img-fluid me-2"
-                  />
-                  Photo
-                </a>
-              </li>
-              <!-- <li class="me-3 mb-md-0 mb-2">
+                <ul class="post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
+                  <li class="me-3 mb-md-0 mb-2">
+                    <a
+                      href="#"
+                      class="btn btn-soft-primary"
+                      v-on:click="openImageUploadBrowse"
+                      id="file"
+                    >
+                      <img
+                        src="http://localhost:8001/assets/images/small/07.png"
+                        alt="icon"
+                        class="img-fluid me-2"
+                      />
+                      Photo
+                    </a>
+                  </li>
+                  <!-- <li class="me-3 mb-md-0 mb-2">
             <a href="#" class="btn btn-soft-primary">
               <img
                 src="http://localhost:8001/assets/images/small/07.png"
@@ -77,24 +80,22 @@
               Video
             </a>
           </li> -->
-            </ul>
+                </ul>
               </div>
               <div class="col-md-4">
                 <div class="text-right">
-                    <ul class="post-opt-block list-inline m-0 p-0">
-                  <li class="me-3 mb-md-0 mb-2 float-right">
-                    <input 
-                    type="submit"
-                      class="btn btn-success"
-                    value="Post now"
-                    >
-                    
-                  </li>
-                    </ul>
+                  <ul class="post-opt-block list-inline m-0 p-0">
+                    <li class="me-3 mb-md-0 mb-2 float-right">
+                      <input
+                        type="submit"
+                        class="btn btn-success"
+                        value="Post now"
+                      />
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-          
           </form>
         </div>
       </div>
@@ -243,17 +244,16 @@
 </template>
 
 <script>
-import UploadImages from "vue-upload-drop-images";
 export default {
   name: "create-post",
-  components: { UploadImages },
+  components: {},
   data() {
     return {
-      description: '',
+      description: "",
       image: null,
       url: null,
-      data : {}
-    //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
+      data: {},
+      //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
     };
   },
   methods: {
@@ -274,39 +274,40 @@ export default {
       this.url = null;
       this.image = null;
     },
-    createPost(){
-        let formData = new FormData();
-        formData.append("description", this.description);
-        formData.append("image", this.image);
-        console.log(formData)
-        console.log(this.description)
+    createPost() {
+      let formData = new FormData();
+      formData.append("description", this.description);
+      formData.append("image", this.image);
+      console.log(formData);
+      console.log(this.description);
 
-        axios.post('posts', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            },
+      axios
+        .post("posts", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
-        .then(response => {
-            console.info(response.data)
-            if(response.data.success){
-                Swal.fire({
-                    title: 'Successfully created your post.',
-                    icon: 'success',
-                })
-                this.description = '';
-                this.removeUploadedImage();
-            } else {
-                Swal.fire({
-                    title: 'Couldn\'t created your post, please try again later',
-                    icon: 'error',
-                })
-            }
-        }).
-        catch(error => {
-            this.errored = true
-            console.error(error)
+        .then((response) => {
+          console.info(response.data);
+          if (response.data.success) {
+            Swal.fire({
+              title: "Successfully created your post.",
+              icon: "success",
+            });
+            this.description = "";
+            this.removeUploadedImage();
+          } else {
+            Swal.fire({
+              title: "Couldn't created your post, please try again later",
+              icon: "error",
+            });
+          }
         })
-        .finally(() => this.loading = false) 
+        .catch((error) => {
+          this.errored = true;
+          console.error(error);
+        })
+        .finally(() => (this.loading = false));
     },
     auto_grow() {
       const element = this.$refs.refTextAreaDescription;

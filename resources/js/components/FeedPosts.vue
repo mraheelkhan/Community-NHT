@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="col-sm-12" v-for="(post, index) in posts" :key="index">
       <div class="card card-block card-stretch card-height">
         <div class="card-body">
@@ -16,7 +16,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="">
                     <h5 class="mb-0 d-inline-block">
-                      {{ post.fullname }}
+                      {{ post.full_name }}
                     </h5>
                     <span class="mb-0 d-inline-block">added new post</span>
                     <p class="mb-0 text-primary">
@@ -55,10 +55,10 @@
             <p>{{ post.free_description }}</p>
           </div>
 
-          <div class="user-post" v-if="post.filename">
+          <div class="user-post" v-if="post.image">
             <a href="#">
               <img
-                :src="'http://localhost:8001/postimages/' + post.filename"
+                :src="post.image"
                 alt="post-image"
                 class="img-fluid rounded w-100 shadow"
               />
@@ -77,13 +77,16 @@
               <div
                 class="like-block position-relative d-flex align-items-center"
               >
-                <post-like-counter></post-like-counter>
-                <post-comment-counter></post-comment-counter>
+                <post-like-counter 
+                :likes_count="post.likes_count"
+                :is_liked="true"
+                ></post-like-counter>
+                <post-comment-counter :count="post.comments"></post-comment-counter>
               </div>
             </div>
             <hr />
-            <post-comment-list></post-comment-list>
-            <create-comment></create-comment>
+            <post-comment-list :comments="post.comments"></post-comment-list>
+            <create-comment :post_id="post.id"></create-comment>
           </div>
         </div>
       </div>
@@ -109,24 +112,13 @@ export default {
     };
   },
   methods: {
-    getAllPosts() {
-      axios
-        .get("posts")
+    async getAllPosts() {
+      await axios
+        .get("api/posts")
         .then((response) => {
           console.info(response.data);
-          if (response.data.success) {
-            Swal.fire({
-              title: "Successfully created your post.",
-              icon: "success",
-            });
-            this.description = "";
-            this.removeUploadedImage();
-          } else {
-            Swal.fire({
-              title: "Couldn't created your post, please try again later",
-              icon: "error",
-            });
-          }
+          this.posts = response.data.data;
+          console.log(posts);
         })
         .catch((error) => {
           this.errored = true;
@@ -134,6 +126,13 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+  },
+  mounted() {
+    console.log("mounted feed posts");
+    this.getAllPosts();
+  },
+  created() {
+    console.log("created feed post");
   },
 };
 </script>

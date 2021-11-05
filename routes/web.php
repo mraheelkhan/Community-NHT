@@ -1,12 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    PostController,
-    FeedController,
-    HomeController,
-
-};
+use App\Http\Controllers\{Api\CommentController, Api\LikeController, PostController, FeedController, HomeController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +19,10 @@ Route::get('/', function () {
 Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
 Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class);
+    Route::prefix('user')->group(function(){
+        Route::resource('comments', CommentController::class);
+        Route::resource('likes', LikeController::class);
+    });
 });
 Auth::routes();
 

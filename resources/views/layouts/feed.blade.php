@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/libs.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/remixicon/fonts/remixicon.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/vanillajs-datepicker/dist/css/datepicker.min.css')}}">
+
+
 </head>
 <body>
 <div  class="wrapper" id="app">
@@ -36,7 +38,6 @@
 <!-- Backend Bundle JavaScript -->
 <script src="https://kit.fontawesome.com/692591416e.js" crossorigin="anonymous"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
 <script src="{{ asset('assets/js/libs.min.js')}}"></script>
 <!-- slider JavaScript -->
 <script src="{{ asset('assets/js/slider.js')}}"></script>

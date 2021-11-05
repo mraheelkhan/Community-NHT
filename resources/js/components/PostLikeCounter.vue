@@ -1,6 +1,22 @@
 <template>
   <div>
     <div class="d-flex align-items-center">
+      <div class="like-data">
+        <div class="dropdown">
+          <span
+            class="dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            role="button"
+          >
+            <i 
+            :class="'fa fa-2x ' + 
+                    (is_liked ? 'fa-thumbs-up text-primary' : 'fa-thumbs-o-up text-secondary')"
+            ></i>
+          </span>
+        </div>
+      </div>
       <div class="total-like-block ms-2 me-3">
         <div class="dropdown">
           <span
@@ -10,17 +26,8 @@
             aria-expanded="false"
             role="button"
           >
-            {{ post.likes }} Likes
+            {{ likes_count }} Likes
           </span>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Max Emum</a>
-            <a class="dropdown-item" href="#">Bill Yerds</a>
-            <a class="dropdown-item" href="#">Hap E. Birthday</a>
-            <a class="dropdown-item" href="#">Tara Misu</a>
-            <a class="dropdown-item" href="#">Midge Itz</a>
-            <a class="dropdown-item" href="#">Sal Vidge</a>
-            <a class="dropdown-item" href="#">Other</a>
-          </div>
         </div>
       </div>
     </div>
@@ -29,6 +36,7 @@
 
 <script>
 export default {
+  props: ["likes_count", "is_liked"],
   data() {
     return {};
   },

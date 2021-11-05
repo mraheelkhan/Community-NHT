@@ -43,6 +43,10 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
+    public function likes() : HasMany
+    {
+        return $this->hasMany(Like::class, 'post_id', 'id');
+    }
 
     public function getFreeDescriptionAttribute(): string{
         return (empty($this->attributes['description']) ? '' : $this->attributes['description']);

@@ -97,7 +97,7 @@ class PostController extends Controller
      * @param $image
      * @return Attachment
      */
-    public function setImage($image, Post $post): Attachment
+    private function setImage($image, Post $post): Attachment
     {
         $rand = mt_rand(100000, 999999);
         $name = time() . "_" . $rand . "." . $image->getClientOriginalExtension();
@@ -117,7 +117,7 @@ class PostController extends Controller
      * @param $image
      * @return Post
      */
-    public function setPost(Request $description): Post
+    private function setPost(Request $description): Post
     {
         $post = Post::create([
             'description' => $description->description,
