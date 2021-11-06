@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-
+axios.defaults.baseURL = 'http://localhost:8001/';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 import CreatePost from './components/CreatePost';
 import FeedPosts from './components/FeedPosts';
+import ProfileFeedPosts from './components/ProfileFeedPosts';
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -33,5 +34,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    components : { CreatePost, FeedPosts }
+    components : { CreatePost, FeedPosts, ProfileFeedPosts }
 });

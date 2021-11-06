@@ -26,7 +26,7 @@
         accept="image/*"
       />
     </div>
-    <button @click="refreshComments;">comments</button>
+    
     <div v-if="url" class="w-100">
       <hr />
       <img :src="url" id="preview" class="img-thumbnail w-100" />

@@ -1,14 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    Api\CommentController,
+use App\Http\Controllers\{Api\CommentController,
     LikeController,
     Api\PostController as ApiPostController,
     PostController,
     FeedController,
-    HomeController
-};
+    HomeController,
+    ProfileController};
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +35,8 @@ Auth::routes();
 
 Route::prefix('public')->group(function(){
     Route::resource('posts', ApiPostController::class);
+    Route::get('profile/{username}', [ProfileController::class, 'index'])->name('public.profile');
+    Route::get('profile/user/{username}', [ProfileController::class, 'show'])->name('public.profile.user');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

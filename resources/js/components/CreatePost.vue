@@ -296,6 +296,7 @@ export default {
             this.removeUploadedImage();
 
             this.$root.$emit('refreshPosts');
+            this.$root.$emit('refreshProfilePosts');
           } else {
             Swal.fire({
               title: "Couldn't created your post, please try again later",

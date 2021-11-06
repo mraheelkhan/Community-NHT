@@ -77,17 +77,25 @@
               <div
                 class="like-block position-relative d-flex align-items-center"
               >
-                <post-like-counter 
-                :likes_count="post.likes_count"
-                :is_liked="post.is_liked"
-                :post_id="post.id"
+                <post-like-counter
+                  :likes_count="post.likes_count"
+                  :is_liked="post.is_liked"
+                  :post_id="post.id"
                 ></post-like-counter>
-                <post-comment-counter :count="post.comments.length"></post-comment-counter>
+                <post-comment-counter
+                  :count="post.comments.length"
+                ></post-comment-counter>
               </div>
             </div>
             <hr />
-            <post-comment-list ref="refComments" :comments="post.comments"></post-comment-list>
-            <create-comment v-if="is_auth" :post_id="post.id"></create-comment>
+            <post-comment-list
+              ref="refComments"
+              :comments="post.comments"
+            ></post-comment-list>
+            <create-comment
+              v-if="is_auth"
+              :post_id="post.id"
+            ></create-comment>
           </div>
         </div>
       </div>
@@ -101,7 +109,7 @@ import PostCommentCounter from "./PostCommentCounter.vue";
 import PostCommentList from "./PostCommentList.vue";
 import PostLikeCounter from "./PostLikeCounter.vue";
 export default {
-  props:['is_auth'],
+  props: ["username", "is_auth"],
   components: {
     PostCommentCounter,
     PostLikeCounter,
@@ -116,7 +124,7 @@ export default {
   methods: {
     async getAllPosts() {
       await axios
-        .get("public/posts")
+        .get("public/profile/user/" + this.username)
         .then((response) => {
           this.posts = response.data.data;
         })
@@ -130,8 +138,8 @@ export default {
   mounted() {
     this.getAllPosts();
 
-    this.$root.$on('refreshPosts', ()=> {
-        this.getAllPosts();
+    this.$root.$on("refreshProfilePosts", () => {
+      this.getAllPosts();
     });
   },
   created() {
