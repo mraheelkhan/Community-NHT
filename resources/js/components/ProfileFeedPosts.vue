@@ -24,7 +24,7 @@
                     </p>
                   </div>
                   <div class="card-post-toolbar">
-                    <div class="dropdown">
+                    <!-- <div class="dropdown">
                       <span
                         class="dropdown-toggle"
                         data-bs-toggle="dropdown"
@@ -45,7 +45,7 @@
                           </div>
                         </a>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
