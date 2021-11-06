@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css?v='.filemtime(public_path('css/app.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css?v='.filemtime(public_path('css/app.css'))) }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/css/socialv1fc6.css?v=4.0.0')}}">
     <link rel="stylesheet" href="{{asset('assets/css/libs.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/remixicon/fonts/remixicon.css')}}">
@@ -37,7 +37,7 @@
 
 <!-- Backend Bundle JavaScript -->
 <script src="https://kit.fontawesome.com/692591416e.js" crossorigin="anonymous"></script>
-<script src="{{ asset('js/app.js?v='.filemtime(public_path('js/app.js')) }}"></script>
+<script src="{{ asset('js/app.js?v='.filemtime(public_path('js/app.js'))) }}"></script>
 <script src="{{ asset('assets/js/libs.min.js')}}"></script>
 <!-- slider JavaScript -->
 <script src="{{ asset('assets/js/slider.js')}}"></script>
