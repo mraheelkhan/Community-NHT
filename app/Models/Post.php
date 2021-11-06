@@ -14,7 +14,7 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['description', 'image', 'author_id'];
+    protected $fillable = ['description', 'author_id'];
     protected $appends = ['free_description'];
     protected static function boot()
     {
