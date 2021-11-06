@@ -21,7 +21,7 @@ use App\Http\Controllers\{Api\CommentController,
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route("feed.index");
 });
 Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
 Route::middleware('auth')->group(function () {
