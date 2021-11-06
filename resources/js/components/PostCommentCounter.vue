@@ -9,7 +9,7 @@
           aria-expanded="false"
           role="button"
         >
-          20 Comment
+          {{ count }} Comment
         </span>
       </div>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 export default {
+    props : ['count'],
   data() {
     return {};
   },

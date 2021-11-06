@@ -28,11 +28,14 @@ Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
 Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class);
     Route::prefix('user')->group(function(){
-        Route::resource('posts', ApiPostController::class);
         Route::resource('comments', CommentController::class);
         Route::resource('likes', LikeController::class);
     });
 });
 Auth::routes();
+
+Route::prefix('public')->group(function(){
+    Route::resource('posts', ApiPostController::class);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

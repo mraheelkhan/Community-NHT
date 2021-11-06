@@ -38,6 +38,9 @@
 </template>
 
 <script>
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
 export default {
   props: ["post_id"],
   data() {
@@ -46,6 +49,7 @@ export default {
       image: null,
       url: null,
       data: {},
+      notyf : null,
     };
   },
   methods: {
@@ -63,12 +67,8 @@ export default {
           },
         })
         .then((response) => {
-          console.info(response.data);
           if (response.data.success) {
-            Swal.fire({
-              title: "Successfully created your post.",
-              icon: "success",
-            });
+            this.notyf.success('You have commented on a post.');
             this.description = "";
             this.removeUploadedImage();
 
@@ -100,18 +100,12 @@ export default {
       this.image = null;
     },
     refreshComments(){
-        this.$parent.$refs.refComments = response.data;
-        axios
-        .get("user/comments/" + this.post_id)
-        .then((response) => {
-            
-        })
-        .catch((error) => {
-          this.errored = true;
-          console.error(error);
-        })
-        .finally(() => (this.loading = false));
+        this.$parent.getAllPosts();
     },
+  },
+  mounted() {
+    this.notyf = new Notyf();
+      
   },
 };
 </script>

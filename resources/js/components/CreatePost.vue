@@ -278,8 +278,6 @@ export default {
       let formData = new FormData();
       formData.append("description", this.description);
       formData.append("image", this.image);
-      console.log(formData);
-      console.log(this.description);
 
       axios
         .post("posts", formData, {
@@ -296,6 +294,8 @@ export default {
             });
             this.description = "";
             this.removeUploadedImage();
+
+            this.$root.$emit('refreshPosts');
           } else {
             Swal.fire({
               title: "Couldn't created your post, please try again later",
@@ -309,6 +309,7 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    
     auto_grow() {
       const element = this.$refs.refTextAreaDescription;
       if (element.scrollHeight >= 200) {

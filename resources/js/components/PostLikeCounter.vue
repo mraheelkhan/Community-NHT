@@ -9,10 +9,15 @@
             aria-haspopup="true"
             aria-expanded="false"
             role="button"
+            @click="likePost"
           >
-            <i 
-            :class="'fa fa-2x ' + 
-                    (is_liked ? 'fa-thumbs-up text-primary' : 'fa-thumbs-o-up text-secondary')"
+            <i
+              :class="
+                'fa fa-2x ' +
+                (is_liked
+                  ? 'fa-thumbs-up text-primary'
+                  : 'fa-thumbs-o-up text-secondary')
+              "
             ></i>
           </span>
         </div>
@@ -36,10 +41,44 @@
 
 <script>
 export default {
-  props: ["likes_count", "is_liked"],
+  props: ["likes_count", "is_liked", "post_id"],
   data() {
     return {};
   },
+  methods: {
+    likePost() {
+      let formData = new FormData();
+      formData.append("post_id", this.post_id);
+
+      axios
+        .post("user/likes", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          if (response.data.success) {
+            this.notyf.success("You have commented on a post.");
+            this.description = "";
+            this.removeUploadedImage();
+
+            this.refreshComments();
+          } else {
+            Swal.fire({
+              title: "Couldn't created your post, please try again later",
+              icon: "error",
+            });
+          }
+        })
+        .catch((error) => {
+          this.errored = true;
+          console.error(error);
+        })
+        .finally(() => (this.loading = false));
+    },
+  },
+  mounted() {},
 };
 </script>
 

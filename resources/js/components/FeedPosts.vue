@@ -80,8 +80,9 @@
                 <post-like-counter 
                 :likes_count="post.likes_count"
                 :is_liked="true"
+                :post_id="post.id"
                 ></post-like-counter>
-                <post-comment-counter :count="post.comments"></post-comment-counter>
+                <post-comment-counter :count="post.comments.length"></post-comment-counter>
               </div>
             </div>
             <hr />
@@ -114,7 +115,7 @@ export default {
   methods: {
     async getAllPosts() {
       await axios
-        .get("user/posts")
+        .get("public/posts")
         .then((response) => {
           this.posts = response.data.data;
         })
@@ -127,9 +128,13 @@ export default {
   },
   mounted() {
     this.getAllPosts();
+
+    this.$root.$on('refreshPosts', ()=> {
+        this.getAllPosts();
+    });
   },
   created() {
-    
+    setInterval(() => this.getAllPosts(), 30000);
   },
 };
 </script>
