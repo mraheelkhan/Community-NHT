@@ -2149,6 +2149,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.description = "";
 
           _this.removeUploadedImage();
+
+          _this.refreshComments();
         } else {
           Swal.fire({
             title: "Couldn't created your post, please try again later",
@@ -2174,6 +2176,17 @@ __webpack_require__.r(__webpack_exports__);
     removeUploadedImage: function removeUploadedImage(e) {
       this.url = null;
       this.image = null;
+    },
+    refreshComments: function refreshComments() {
+      var _this2 = this;
+
+      this.$parent.$refs.refComments = response.data;
+      axios.get("user/comments/" + this.post_id).then(function (response) {})["catch"](function (error) {
+        _this2.errored = true;
+        console.error(error);
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
     }
   }
 });
@@ -2696,10 +2709,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("api/posts").then(function (response) {
-                  console.info(response.data);
+                return axios.get("user/posts").then(function (response) {
                   _this.posts = response.data.data;
-                  console.log(posts);
                 })["catch"](function (error) {
                   _this.errored = true;
                   console.error(error);
@@ -2717,12 +2728,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    console.log("mounted feed posts");
     this.getAllPosts();
   },
-  created: function created() {
-    console.log("created feed post");
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -39594,16 +39602,7 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "comment-attagement d-flex" }, [
-        _c(
-          "a",
-          {
-            attrs: { href: "javascript:void();" },
-            on: { click: _vm.openImageUploadBrowse },
-          },
-          [_c("i", { staticClass: "ri-camera-line me-3" })]
-        ),
-      ]),
+      _c("div", { staticClass: "comment-attagement d-flex" }),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -39619,6 +39618,18 @@ var render = function () {
         on: { change: _vm.imagePreview },
       }),
     ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function ($event) {
+            _vm.refreshComments
+          },
+        },
+      },
+      [_vm._v("comments")]
+    ),
     _vm._v(" "),
     _vm.url
       ? _c("div", { staticClass: "w-100" }, [
@@ -40029,9 +40040,15 @@ var render = function () {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _c("post-comment-list", { attrs: { comments: post.comments } }),
+                _c("post-comment-list", {
+                  ref: "refComments",
+                  refInFor: true,
+                  attrs: { comments: post.comments },
+                }),
                 _vm._v(" "),
-                _c("create-comment", { attrs: { post_id: post.id } }),
+                post.is_auth
+                  ? _c("create-comment", { attrs: { post_id: post.id } })
+                  : _vm._e(),
               ],
               1
             ),

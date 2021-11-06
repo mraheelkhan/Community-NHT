@@ -85,8 +85,8 @@
               </div>
             </div>
             <hr />
-            <post-comment-list :comments="post.comments"></post-comment-list>
-            <create-comment :post_id="post.id"></create-comment>
+            <post-comment-list ref="refComments" :comments="post.comments"></post-comment-list>
+            <create-comment v-if="post.is_auth" :post_id="post.id"></create-comment>
           </div>
         </div>
       </div>
@@ -114,11 +114,9 @@ export default {
   methods: {
     async getAllPosts() {
       await axios
-        .get("api/posts")
+        .get("user/posts")
         .then((response) => {
-          console.info(response.data);
           this.posts = response.data.data;
-          console.log(posts);
         })
         .catch((error) => {
           this.errored = true;
@@ -128,11 +126,10 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted feed posts");
     this.getAllPosts();
   },
   created() {
-    console.log("created feed post");
+    
   },
 };
 </script>

@@ -2,7 +2,6 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8 row m-0 p-0">
-
             @auth()
             <create-post></create-post>
             @else

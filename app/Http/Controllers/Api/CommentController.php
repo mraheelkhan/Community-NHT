@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentStoreRequest;
 use App\Models\Attachment;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -22,6 +23,10 @@ class CommentController extends Controller
         ];
     }
 
+    public function show(Request $request, $post_id){
+        $post = Post::findOrFail($post_id);
+        return $post->comments;
+    }
     /**
      * @param $image
      * @return Attachment

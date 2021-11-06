@@ -11,9 +11,9 @@
 
       <div class="comment-attagement d-flex">
         <!-- <a><i class="ri-user-smile-line me-3"></i></a> -->
-        <a href="javascript:void();" v-on:click="openImageUploadBrowse"
+        <!-- <a href="javascript:void();" v-on:click="openImageUploadBrowse"
           ><i class="ri-camera-line me-3"></i
-        ></a>
+        ></a> -->
       </div>
       <hr />
       <input
@@ -26,7 +26,7 @@
         accept="image/*"
       />
     </div>
-
+    <button @click="refreshComments;">comments</button>
     <div v-if="url" class="w-100">
       <hr />
       <img :src="url" id="preview" class="img-thumbnail w-100" />
@@ -71,6 +71,8 @@ export default {
             });
             this.description = "";
             this.removeUploadedImage();
+
+            this.refreshComments()
           } else {
             Swal.fire({
               title: "Couldn't created your post, please try again later",
@@ -96,6 +98,19 @@ export default {
     removeUploadedImage(e) {
       this.url = null;
       this.image = null;
+    },
+    refreshComments(){
+        this.$parent.$refs.refComments = response.data;
+        axios
+        .get("user/comments/" + this.post_id)
+        .then((response) => {
+            
+        })
+        .catch((error) => {
+          this.errored = true;
+          console.error(error);
+        })
+        .finally(() => (this.loading = false));
     },
   },
 };

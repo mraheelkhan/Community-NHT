@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(){
-        $posts = Post::with('comments','comments.user', 'comments.image', 'image')->orderBy('created_at', 'desc')->get();
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $posts = Post::with('comments','comments.user', 'comments.image', 'image')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return (PostResource::collection($posts));
     }
 }
