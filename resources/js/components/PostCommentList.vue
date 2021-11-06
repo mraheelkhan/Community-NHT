@@ -24,8 +24,8 @@
             />
             </div>
             <div class="d-flex flex-wrap align-items-center comment-activity">
-              <a href="javascript:void();">like</a>
-              <a href="javascript:void();">reply</a>
+              <!-- <a href="javascript:void();">like</a> -->
+              <!-- <a href="javascript:void();">reply</a> -->
               <span> {{ comment.created_at_human_diff }}</span>
             </div>
             

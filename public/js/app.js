@@ -2850,6 +2850,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+/* harmony import */ var notyf_notyf_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! notyf/notyf.min.css */ "./node_modules/notyf/notyf.min.css");
 //
 //
 //
@@ -2891,10 +2893,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["likes_count", "is_liked", "post_id"],
   data: function data() {
-    return {};
+    return {
+      notyfy: null
+    };
   },
   methods: {
     likePost: function likePost() {
@@ -2902,20 +2927,16 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append("post_id", this.post_id);
+      formData.append("is_like", true);
       axios.post("user/likes", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Accept: "application/json"
         }
       }).then(function (response) {
         if (response.data.success) {
-          _this.notyf.success("You have commented on a post.");
+          _this.notyfy.success(response.data.message);
 
-          _this.description = "";
-
-          _this.removeUploadedImage();
-
-          _this.refreshComments();
+          _this.refreshLikes();
         } else {
           Swal.fire({
             title: "Couldn't created your post, please try again later",
@@ -2928,9 +2949,42 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         return _this.loading = false;
       });
+    },
+    dislikePost: function dislikePost() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append("post_id", this.post_id);
+      formData.append("is_like", false);
+      axios.post("user/likes", formData, {
+        headers: {
+          Accept: "application/json"
+        }
+      }).then(function (response) {
+        if (response.data.success) {
+          _this2.notyfy.success('You have dislike a post.');
+
+          _this2.refreshLikes();
+        } else {
+          Swal.fire({
+            title: "Couldn't created your post, please try again later",
+            icon: "error"
+          });
+        }
+      })["catch"](function (error) {
+        _this2.errored = true;
+        console.error(error);
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
+    },
+    refreshLikes: function refreshLikes() {
+      this.$parent.getAllPosts();
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.notyfy = new notyf__WEBPACK_IMPORTED_MODULE_0__.Notyf();
+  }
 });
 
 /***/ }),
@@ -40945,7 +40999,7 @@ var render = function () {
                         _c("post-like-counter", {
                           attrs: {
                             likes_count: post.likes_count,
-                            is_liked: true,
+                            is_liked: post.is_liked,
                             post_id: post.id,
                           },
                         }),
@@ -41133,14 +41187,6 @@ var render = function () {
                     "d-flex flex-wrap align-items-center comment-activity",
                 },
                 [
-                  _c("a", { attrs: { href: "javascript:void();" } }, [
-                    _vm._v("like"),
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "javascript:void();" } }, [
-                    _vm._v("reply"),
-                  ]),
-                  _vm._v(" "),
                   _c("span", [
                     _vm._v(" " + _vm._s(comment.created_at_human_diff)),
                   ]),
@@ -41196,28 +41242,51 @@ var render = function () {
     _c("div", { staticClass: "d-flex align-items-center" }, [
       _c("div", { staticClass: "like-data" }, [
         _c("div", { staticClass: "dropdown" }, [
-          _c(
-            "span",
-            {
-              staticClass: "dropdown-toggle",
-              attrs: {
-                "data-bs-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false",
-                role: "button",
-              },
-              on: { click: _vm.likePost },
-            },
-            [
-              _c("i", {
-                class:
-                  "fa fa-2x " +
-                  (_vm.is_liked
-                    ? "fa-thumbs-up text-primary"
-                    : "fa-thumbs-o-up text-secondary"),
-              }),
-            ]
-          ),
+          _vm.is_liked
+            ? _c(
+                "span",
+                {
+                  staticClass: "dropdown-toggle",
+                  attrs: {
+                    "data-bs-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false",
+                    role: "button",
+                  },
+                  on: { click: _vm.dislikePost },
+                },
+                [
+                  _c("i", {
+                    class:
+                      "fa fa-2x " +
+                      (_vm.is_liked
+                        ? "fa-thumbs-up text-primary"
+                        : "fa-thumbs-o-up text-secondary"),
+                  }),
+                ]
+              )
+            : _c(
+                "span",
+                {
+                  staticClass: "dropdown-toggle",
+                  attrs: {
+                    "data-bs-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false",
+                    role: "button",
+                  },
+                  on: { click: _vm.likePost },
+                },
+                [
+                  _c("i", {
+                    class:
+                      "fa fa-2x " +
+                      (_vm.is_liked
+                        ? "fa-thumbs-up text-primary"
+                        : "fa-thumbs-o-up text-secondary"),
+                  }),
+                ]
+              ),
         ]),
       ]),
       _vm._v(" "),

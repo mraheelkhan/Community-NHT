@@ -4,6 +4,25 @@
       <div class="like-data">
         <div class="dropdown">
           <span
+            v-if="is_liked"
+            class="dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            role="button"
+            @click="dislikePost"
+          >
+            <i
+              :class="
+                'fa fa-2x ' +
+                (is_liked
+                  ? 'fa-thumbs-up text-primary'
+                  : 'fa-thumbs-o-up text-secondary')
+              "
+            ></i>
+          </span>
+          <span
+            v-else
             class="dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-haspopup="true"
@@ -40,30 +59,32 @@
 </template>
 
 <script>
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
 export default {
   props: ["likes_count", "is_liked", "post_id"],
   data() {
-    return {};
+    return {
+      notyfy : null,
+    };
   },
   methods: {
     likePost() {
       let formData = new FormData();
       formData.append("post_id", this.post_id);
+      formData.append("is_like", true);
 
       axios
         .post("user/likes", formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Accept: "application/json",
           },
         })
         .then((response) => {
           if (response.data.success) {
-            this.notyf.success("You have commented on a post.");
-            this.description = "";
-            this.removeUploadedImage();
-
-            this.refreshComments();
+            this.notyfy.success(response.data.message);
+            this.refreshLikes();
           } else {
             Swal.fire({
               title: "Couldn't created your post, please try again later",
@@ -77,8 +98,41 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    dislikePost() {
+      let formData = new FormData();
+      formData.append("post_id", this.post_id);
+      formData.append("is_like", false);
+
+      axios
+        .post("user/likes", formData, {
+          headers: {
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          if (response.data.success) {
+            this.notyfy.success('You have dislike a post.');
+            this.refreshLikes();
+          } else {
+            Swal.fire({
+              title: "Couldn't created your post, please try again later",
+              icon: "error",
+            });
+          }
+        })
+        .catch((error) => {
+          this.errored = true;
+          console.error(error);
+        })
+        .finally(() => (this.loading = false));
+    },
+    refreshLikes(){
+        this.$parent.getAllPosts();
+    },
   },
-  mounted() {},
+  mounted() {
+    this.notyfy = new Notyf();
+  },
 };
 </script>
 

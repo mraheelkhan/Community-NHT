@@ -48,8 +48,7 @@ class CommentController extends Controller
 
     /**
      * @param $request
-     * @param $image
-     * @return Post
+     * @return Comment
      */
     private function setComment(Request $comment): Comment
     {

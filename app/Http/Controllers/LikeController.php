@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LikeStoreRequest;
 use App\Models\Like;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,24 @@ class LikeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function store(Request $request)
+    public function store(LikeStoreRequest $request)
     {
-        //
+        /**
+         * @param is_like
+         * @return string
+         * is_like is string due JS FormData
+         */
+        if($request->is_like == 'true'){
+            $this->setLike($request);
+        } else {
+            $this->setDislike($request);
+        }
+        return [
+            'success' => true,
+            'message' => 'You have liked a post.'
+        ];
     }
 
     /**
@@ -81,5 +95,27 @@ class LikeController extends Controller
     public function destroy(Like $like)
     {
         //
+    }
+
+    /**
+     * @param $request
+     * @return Like
+     */
+    private function setLike(Request $request): Like
+    {
+        $like = Like::create([
+            'post_id' => $request->post_id,
+        ]);
+        return $like;
+    }
+
+    private function setDislike(LikeStoreRequest $request): bool
+    {
+        $like = Like::where('post_id', $request->post_id)->firstOrFail();
+        $like->delete();
+        if($like){
+            return true;
+        }
+        return false;
     }
 }

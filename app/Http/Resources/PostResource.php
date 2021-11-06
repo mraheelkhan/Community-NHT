@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Like;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -22,6 +23,9 @@ class PostResource extends JsonResource
             'full_name' => ucwords($this->user->fullname),
             'comments' => $this->comments,
             'likes_count' => count($this->likes),
+            'is_liked' => (auth()->check() ?
+                          Like::where('post_id', $this->id)->where('user_id', auth()->user()->id)->exists() :
+                          false) ,
             'created_at' => $this->created_at->diffForHumans(),
             'is_auth' => auth()->check(),
         ];

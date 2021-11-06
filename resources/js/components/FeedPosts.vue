@@ -79,7 +79,7 @@
               >
                 <post-like-counter 
                 :likes_count="post.likes_count"
-                :is_liked="true"
+                :is_liked="post.is_liked"
                 :post_id="post.id"
                 ></post-like-counter>
                 <post-comment-counter :count="post.comments.length"></post-comment-counter>
