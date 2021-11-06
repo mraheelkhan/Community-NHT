@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'free_description' => $this->free_description,
             'image' => ($this->image->filename) ? asset("postimages/" . $this->image->filename) : null,
             'full_name' => ucwords($this->user->fullname),
+            'user_image' => ucwords($this->user->image),
             'comments' => $this->comments,
             'likes_count' => count($this->likes),
             'is_liked' => (auth()->check() ?

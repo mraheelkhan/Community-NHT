@@ -70,6 +70,7 @@ class RegisterController extends Controller
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'username' => $data['username'],
+            'image' => 'https://via.placeholder.com/640x480.png/00ccbb?text=' . $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

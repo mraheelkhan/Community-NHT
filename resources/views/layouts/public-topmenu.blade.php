@@ -108,7 +108,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset('assets/images/user/1.jpg')}}" class="img-fluid rounded-circle me-3" alt="user">
+                            <img src="{{ auth()->user()->image }}" class="img-fluid rounded-circle me-3" alt="user">
                             <div class="caption">
                                 <h6 class="mb-0 line-height">{{ ucwords(auth()->user()->firstname) }}</h6>
                             </div>
@@ -134,7 +134,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('profile.edit', auth()->user()->username ) }}"
                                        class="iq-sub-card iq-bg-warning-hover">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded card-icon bg-soft-warning">

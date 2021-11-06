@@ -5,9 +5,9 @@
         <div class="d-flex">
           <div class="user-img">
             <img
-              src="http://localhost:8001/assets/images/user/02.jpg"
+              :src="comment.user.image"
               alt="userimg"
-              class="avatar-35 rounded-circle img-fluid"
+              class="avatar-50 rounded-circle"
             />
           </div>
           <div class="comment-data-block ms-3">

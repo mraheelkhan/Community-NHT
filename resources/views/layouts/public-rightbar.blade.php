@@ -1,98 +1,24 @@
-<div class="right-sidebar-mini right-sidebar d-none">
+<div class="right-sidebar-mini right-sidebar">
+    @php $all_users = App\Models\User::all(); @endphp
     <div class="right-sidebar-panel p-0">
         <div class="card shadow-none">
             <div class="card-body p-0">
+                <h4 class="p-3 pb-0"> Other members</h4>
+                <hr/>
                 <div class="media-height p-3" data-scrollbar="init">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/01.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Anna Sthesia</h6>
-                            <p class="mb-0">Just Now</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/02.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Paul Molive</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/03.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Anna Mull</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/04.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Paige Turner</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/11.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Bob Frapples</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/02.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Barb Ackue</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/03.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Greta Life</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
+                    @foreach($all_users as $member)
+                        <a href="{{ route('public.profile', $member->username) }}" class="card-link">
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-away">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/12.jpg')}}" alt="">
+                            <img class="rounded-circle avatar-50" src="{{ $member->image }}" alt="">
                         </div>
                         <div class="ms-3">
-                            <h6 class="mb-0">Ira Membrit</h6>
-                            <p class="mb-0">Admin</p>
+                            <h6 class="mb-0"> {{ $member->full_name }}</h6>
+                            <p class="mb-0"> {{ __('Member') }}</p>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="iq-profile-avatar status-away">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/01.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Pete Sariya</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="iq-profile-avatar">
-                            <img class="rounded-circle avatar-50" src="{{ asset('assets/images/user/02.jpg')}}" alt="">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">Monty Carlo</h6>
-                            <p class="mb-0">Admin</p>
-                        </div>
-                    </div>
+                        </a>
+                    @endforeach
                 </div>
                 <div class="right-sidebar-toggle bg-primary text-white mt-3">
                     <i class="ri-arrow-left-line side-left-icon"></i>

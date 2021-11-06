@@ -7,8 +7,8 @@
             <div class="d-flex justify-content-between">
               <div class="me-3">
                 <img
-                  class="rounded-circle img-fluid"
-                  src="http://localhost:8001/assets/images/user/01.jpg"
+                  class="rounded-circle avatar-50"
+                  :src="post.user_image"
                   alt=""
                 />
               </div>

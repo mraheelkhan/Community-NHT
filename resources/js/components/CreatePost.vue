@@ -8,13 +8,13 @@
       </div>
       <div class="card-body">
         <div class="d-flex align-items-center">
-          <div class="user-img">
+          <!-- <div class="user-img">
             <img
               src="http://localhost:8001/assets/images/user/1.jpg"
               alt="userimg"
               class="avatar-60 rounded-circle"
             />
-          </div>
+          </div> -->
           <form
             @submit.prevent="createPost"
             class="post-text ms-3 w-100"

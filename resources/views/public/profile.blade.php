@@ -8,14 +8,20 @@
                         <div class="position-relative">
                             <img src="http://localhost:8001/assets/images/page-img/profile-bg1.jpg" alt="profile-bg"
                                  class="rounded img-fluid">
-                            <ul class="header-nav list-inline d-flex flex-wrap justify-end p-0 m-0">
-                                <li><a href="#"><i class="ri-pencil-line"></i></a></li>
-                                <li><a href="#"><i class="ri-settings-4-line"></i></a></li>
-                            </ul>
+                            @auth()
+                                @if(auth()->user()->id == $user->id)
+                                    <ul class="header-nav list-inline flex-wrap justify-end p-0 m-0">
+                                        <li><a href="{{ route('profile.edit', auth()->user()->username ) }}"><i
+                                                    class="ri-pencil-line"></i></a>
+                                        </li>
+                                        <li><a href="#"><i class="ri-settings-4-line"></i></a></li>
+                                    </ul>
+                                @endif
+                            @endauth
                         </div>
                         <div class="user-detail text-center mb-3">
                             <div class="profile-img">
-                                <img src="http://localhost:8001/assets/images/user/11.png" alt="profile-img"
+                                <img src="{{ $user->image }}" alt="profile-img"
                                      class="avatar-130 img-fluid">
                             </div>
                             <div class="profile-detail">
@@ -53,10 +59,10 @@
                                 <a class="nav-link active" href="#pills-timeline-tab" data-bs-toggle="pill"
                                    data-bs-target="#timeline" role="button">Timeline</a>
                             </li>
-{{--                            <li class="nav-item col-12 col-sm-3 p-0">--}}
-{{--                                <a class="nav-link" href="#pills-about-tab" data-bs-toggle="pill"--}}
-{{--                                   data-bs-target="#about" role="button">About</a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item col-12 col-sm-3 p-0">--}}
+                            {{--                                <a class="nav-link" href="#pills-about-tab" data-bs-toggle="pill"--}}
+                            {{--                                   data-bs-target="#about" role="button">About</a>--}}
+                            {{--                            </li>--}}
                         </ul>
                     </div>
                 </div>
@@ -80,14 +86,16 @@
                                                     Do you want to create post? please
                                                     <a href="{{route('login')}}" class="link-primary font-weight-bold"> login </a>
                                                     or
-                                                    <a href="{{route('register')}}" class="link-primary font-weight-normal"> register </a>
+                                                    <a href="{{route('register')}}"
+                                                       class="link-primary font-weight-normal"> register </a>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 @endauth
                                 @if(count($user->posts) > 0)
-                                <profile-feed-posts username="{{ $user->username }}" is_auth="{{ auth()->check() }}"></profile-feed-posts>
+                                    <profile-feed-posts username="{{ $user->username }}"
+                                                        is_auth="{{ auth()->check() }}"></profile-feed-posts>
                                 @else
                                     <div class="alert alert-danger d-flex align-items-center" role="alert">
                                             <span>

@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
 Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class);
+    Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile/{username}', [ProfileController::class, 'update'])->name('profile.update');
     Route::prefix('user')->group(function(){
         Route::resource('comments', CommentController::class);
         Route::resource('likes', LikeController::class);
