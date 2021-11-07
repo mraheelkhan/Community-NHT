@@ -86,10 +86,7 @@ export default {
             this.notyfy.success(response.data.message);
             this.refreshLikes();
           } else {
-            Swal.fire({
-              title: "Couldn't created your post, please try again later",
-              icon: "error",
-            });
+            this.notyfy.error("Could not like this post at the moment.");
           }
         })
         .catch((error) => {

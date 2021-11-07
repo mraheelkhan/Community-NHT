@@ -244,6 +244,9 @@
 </template>
 
 <script>
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
 export default {
   name: "create-post",
   components: {},
@@ -252,6 +255,7 @@ export default {
       description: "",
       image: null,
       url: null,
+      notyfy: null,
       data: {},
       //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
     };
@@ -288,20 +292,13 @@ export default {
         .then((response) => {
           console.info(response.data);
           if (response.data.success) {
-            Swal.fire({
-              title: "Successfully created your post.",
-              icon: "success",
-            });
+            this.notyfy.success("Successfully created your post.")
             this.description = "";
             this.removeUploadedImage();
-
             this.$root.$emit('refreshPosts');
             this.$root.$emit('refreshProfilePosts');
           } else {
-            Swal.fire({
-              title: "Couldn't created your post, please try again later",
-              icon: "error",
-            });
+            this.notyfy.success("Could not created your post, please try again later")
           }
         })
         .catch((error) => {
@@ -319,6 +316,9 @@ export default {
         element.style.height = element.scrollHeight + "px";
       }
     },
+  },
+  mounted() {
+    this.notyfy = new Notyf();
   },
 };
 </script>

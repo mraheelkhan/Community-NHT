@@ -9,8 +9,14 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 var currentUrl = window.location.href;
 
-// axios.defaults.baseURL = 'http://localhost:8000/';
-axios.defaults.baseURL = "https://portal.naturalhairtherapist.com/";
+
+if(process.env.NODE_ENV == "development"){
+    axios.defaults.baseURL = 'http://localhost:8001/';
+}
+else{ 
+    axios.defaults.baseURL = "https://portal.naturalhairtherapist.com/";
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

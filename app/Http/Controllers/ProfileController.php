@@ -35,6 +35,8 @@ class ProfileController extends Controller
 
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->username = $request->username;
         $image = $request->file('user_image');
         if($image){
             $user->image = $this->setImage($image);

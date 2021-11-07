@@ -69,15 +69,15 @@
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="username" class="form-label">User Name:</label>
-                                            <input type="text" disabled value="{{ auth()->user()->username }}" class="form-control" id="username" placeholder="Bni@01">
+                                            <input type="text" name="username" value="{{ auth()->user()->username }}" class="form-control" id="username" placeholder="Bni@01">
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="email" class="form-label">Email:</label>
-                                            <input type="text" disabled value="{{ auth()->user()->email }}" class="form-control" id="email" placeholder="email@domain.com">
+                                            <input type="text" name="email" value="{{ auth()->user()->email }}" class="form-control" id="email" placeholder="email@domain.com">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                    <button type="reset" class="btn bg-soft-danger">Cancle</button>
+                                    <a href="{{ route('public.profile', auth()->user()->username) }}" class="btn bg-soft-danger">Cancel</a>
                                 </form>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                         <input type="Password" class="form-control" id="vpass" value="">
                                     </div>
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                    <button type="reset" class="btn bg-soft-danger">Cancle</button>
+                                    <button type="reset" class="btn bg-soft-danger">Cancel</button>
                                 </form>
                             </div>
                         </div>
