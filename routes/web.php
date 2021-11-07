@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{Api\CommentController,
     LikeController,
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::prefix('public')->group(function(){
     Route::resource('posts', ApiPostController::class);
@@ -42,3 +44,11 @@ Route::prefix('public')->group(function(){
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('feed.index');
+})->middleware(['auth', 'signed'])->name('verification.verify');
