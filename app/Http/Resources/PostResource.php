@@ -28,6 +28,7 @@ class PostResource extends JsonResource
                           Like::where('post_id', $this->id)->where('user_id', auth()->user()->id)->exists() :
                           false) ,
             'created_at' => $this->created_at->diffForHumans(),
+            'is_created_by_auth' => (auth()->check() ? ($this->author_id == auth()->user()->id ? true : false) : false)
         ];
     }
 

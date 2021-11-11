@@ -24,7 +24,7 @@
                     </p>
                   </div>
                   <div class="card-post-toolbar">
-                    <div class="dropdown" v-if="is_auth">
+                    <div class="dropdown" v-if="is_auth && post.is_created_by_auth">
                       <span
                         class="dropdown-toggle"
                         data-bs-toggle="dropdown"
