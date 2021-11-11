@@ -86,11 +86,12 @@
                 <div class="text-right">
                   <ul class="post-opt-block list-inline m-0 p-0">
                     <li class="me-3 mb-md-0 mb-2 float-right">
-                      <input
+                      <button
                         type="submit"
                         class="btn btn-success"
-                        value="Post now"
-                      />
+                        value="Post now" 
+                        :disabled="is_post_btn_disabled"
+                      >Post now</button>
                     </li>
                   </ul>
                 </div>
@@ -256,6 +257,7 @@ export default {
       image: null,
       url: null,
       notyfy: null,
+      is_post_btn_disabled : false,
       data: {},
       //   url: "https://res.cloudinary.com/practicaldev/image/fetch/s--wwG30Vvz--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/c3sn0s6qqp1w4ze20wgx.png",
     };
@@ -283,6 +285,7 @@ export default {
       formData.append("description", this.description);
       formData.append("image", this.image);
 
+      this.is_post_btn_disabled = true;
       axios
         .post("posts", formData, {
           headers: {
@@ -297,8 +300,9 @@ export default {
             this.removeUploadedImage();
             this.$root.$emit('refreshPosts');
             this.$root.$emit('refreshProfilePosts');
+            this.is_post_btn_disabled = false;
           } else {
-            this.notyfy.success("Could not created your post, please try again later")
+            this.notyfy.error("Could not created your post, please try again later")
           }
         })
         .catch((error) => {

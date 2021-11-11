@@ -16,4 +16,19 @@ class PostController extends Controller
             ->get();
         return (PostResource::collection($posts));
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return [
+            'success' => true,
+            'message' => 'Post successfully deleted'
+        ];
+    }
 }

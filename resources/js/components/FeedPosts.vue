@@ -24,7 +24,7 @@
                     </p>
                   </div>
                   <div class="card-post-toolbar">
-                    <!-- <div class="dropdown">
+                    <div class="dropdown" v-if="is_auth">
                       <span
                         class="dropdown-toggle"
                         data-bs-toggle="dropdown"
@@ -35,7 +35,7 @@
                         <i class="ri-more-fill"></i>
                       </span>
                       <div class="dropdown-menu m-0 p-0">
-                        <a class="dropdown-item p-3" href="#">
+                        <a class="dropdown-item p-3" href="#" @click="deletePost(post.id)">
                           <div class="d-flex align-items-top">
                             <i class="ri-close-circle-line h4"></i>
                             <div class="data ms-2">
@@ -45,7 +45,7 @@
                           </div>
                         </a>
                       </div>
-                    </div> -->
+                    </div> 
                   </div>
                 </div>
               </div>
@@ -96,6 +96,9 @@
 </template>
 
 <script>
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
 import CreateComment from "./CreateComment.vue";
 import PostCommentCounter from "./PostCommentCounter.vue";
 import PostCommentList from "./PostCommentList.vue";
@@ -111,6 +114,7 @@ export default {
   data() {
     return {
       posts: null,
+       notyfy : null,
     };
   },
   methods: {
@@ -126,10 +130,24 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    deletePost(id){
+      axios
+        .delete("public/posts/" + id)
+        .then((response) => {
+          console.log(response.data);
+          this.getAllPosts();
+          this.notyfy.error("Post has been deleted.")
+        })
+        .catch((error) => {
+          this.errored = true;
+          console.error(error);
+        })
+        .finally(() => (this.loading = false));
+    }
   },
   mounted() {
     this.getAllPosts();
-
+    this.notyfy = new Notyf();
     this.$root.$on('refreshPosts', ()=> {
         this.getAllPosts();
     });

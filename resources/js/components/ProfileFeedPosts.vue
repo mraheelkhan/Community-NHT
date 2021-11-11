@@ -24,7 +24,7 @@
                     </p>
                   </div>
                   <div class="card-post-toolbar">
-                    <!-- <div class="dropdown">
+                    <div class="dropdown">
                       <span
                         class="dropdown-toggle"
                         data-bs-toggle="dropdown"
@@ -35,7 +35,7 @@
                         <i class="ri-more-fill"></i>
                       </span>
                       <div class="dropdown-menu m-0 p-0">
-                        <a class="dropdown-item p-3" href="#">
+                        <a class="dropdown-item p-3" href="#" @click="deletePost(post.id)">
                           <div class="d-flex align-items-top">
                             <i class="ri-close-circle-line h4"></i>
                             <div class="data ms-2">
@@ -45,7 +45,7 @@
                           </div>
                         </a>
                       </div>
-                    </div> -->
+                    </div> 
                   </div>
                 </div>
               </div>

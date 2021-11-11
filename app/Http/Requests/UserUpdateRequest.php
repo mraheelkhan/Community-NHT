@@ -29,7 +29,7 @@ class UserUpdateRequest extends FormRequest
             'lastname' => 'required',
             'user_image' => 'nullable',
             'email' => "required|email|", Rule::unique('users', 'email')->ignore($this->id),
-            'username' => "required|min:5|max:15|", Rule::unique('users', 'username')->ignore($this->id),
+            'username' => "required|min:5|max:35|", Rule::unique('users', 'username')->ignore($this->id),
         ];
     }
 }

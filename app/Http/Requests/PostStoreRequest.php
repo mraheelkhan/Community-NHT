@@ -24,8 +24,8 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'image' => 'nullable'
+            'description' => 'required_without:image|nullable',
+            'image' => 'required_without:description|nullable'
         ];
     }
 }
