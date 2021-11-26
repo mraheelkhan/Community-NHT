@@ -2,8 +2,8 @@
     <div class="iq-navbar-custom">
         <nav class="navbar navbar-expand-lg navbar-light p-0">
             <div class="iq-navbar-logo d-flex justify-content-between">
-                <a href="index.html">
-                    <img src="{{ asset('assets/images/logo.png')}}" class="img-fluid" alt="nht-logo">
+                <a href="{{ route('feed.index') }}">
+                    <img src="https://naturalhairtherapist.com/wp-content/uploads/2021/11/cropped-WhatsApp-Image-2021-11-24-at-3.30.25-PM-50x54.jpg" class="img-fluid" alt="nht-logo">
                     <span>NHT</span>
                 </a>
                 <div class="iq-menu-bt align-self-center">
@@ -105,6 +105,12 @@
                         </a>
                     </li>
                     @else
+                    <li class="nav-item">
+                        <a href="{{ route('public.profile', auth()->user()->username ) }}">
+                            <i class="ri-user-line"></i>
+                            <span>My  Profile </span>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

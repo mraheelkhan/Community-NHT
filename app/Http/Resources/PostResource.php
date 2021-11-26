@@ -27,7 +27,8 @@ class PostResource extends JsonResource
             'is_liked' => (auth()->check() ?
                           Like::where('post_id', $this->id)->where('user_id', auth()->user()->id)->exists() :
                           false) ,
-            'created_at' => $this->created_at->diffForHumans(),
+            // 'created_at' => $this->created_at->diffForHumans(),
+            'created_at' => $this->created_at->format('d M Y'),
             'is_created_by_auth' => (auth()->check() ? ($this->author_id == auth()->user()->id ? true : false) : false)
         ];
     }
