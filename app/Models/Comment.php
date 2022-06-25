@@ -46,7 +46,6 @@ class Comment extends Model
 
     public function getCreatedAtHumanDiffAttribute(): string{
         $created_at = $this->attributes['created_at'];
-        // return Carbon::create($created_at)->diffForHumans();
         return Carbon::create($created_at)->format('d M Y');
     }
 }
