@@ -1,0 +1,39 @@
+version: '3'
+services: 
+    nht_app:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        container_name: nht_app
+        restart: unless-stopped
+        tty: true
+        command: 'php artisan serve --host=0.0.0.0'
+        volumes:
+            - .:/app
+            - /app/vendor
+        ports:
+            - 8050:8000
+        depends_on: 
+            - nht_db
+        networks:
+            - nht_app_network
+
+    nht_db:
+        image: mysql:8.0
+        container_name: nht_db
+        environment: 
+            MYSQL_DATABASE: community_nht
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+            MYSQL_ROOT_PASSWORD: admin
+        volumes:
+            - ./storage/dbdata:/var/lib/mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 3309:3306
+        networks:
+            - nht_app_network
+networks:
+    nht_app_network:
+        driver: bridge

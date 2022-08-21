@@ -52,3 +52,13 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     $request->fulfill();
     return redirect()->route('feed.index');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+use Illuminate\Support\Facades\DB;
+Route::get("db", function(){
+    // Test database connection
+    try {
+        DB::connection()->getPdo();
+    } catch (\Exception $e) {
+        die("Could not connect to the database.  Please check your configuration. error:" . $e );
+    }
+});
